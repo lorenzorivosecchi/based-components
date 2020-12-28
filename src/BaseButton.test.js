@@ -18,10 +18,15 @@ describe('BaseButton', () => {
   })
   it('has default styles', () => {
     const { getByRole } = render(<BaseButton />);
-    expect(getByRole("button")).toHaveAttribute("class", "button")
+    expect(getByRole("button")).toHaveClass("button")
   })
   it('merges attributes', () => {
     const { getByRole } = render(<BaseButton disabled />);
     expect(getByRole("button")).toHaveAttribute("disabled");
+  })
+  it('merges classNames', () => {
+    const testClass = "secondary";
+    const { getByRole } = render(<BaseButton className={testClass} />);
+    expect(getByRole("button")).toHaveClass("button", testClass)
   })
 })
