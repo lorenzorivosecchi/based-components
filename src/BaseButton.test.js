@@ -27,12 +27,11 @@ describe('BaseButton', () => {
     expect(getByRole('button')).toHaveClass('button', testClass)
   })
   it('handles click events', () => {
-    const handleClick = jest.fn();
+    const handleClick = jest.fn()
     const { getByRole } = render(<BaseButton onClick={handleClick} />)
-    userEvent.click(getByRole("button"));
-    expect(handleClick).toBeCalled(); 
+    userEvent.click(getByRole('button'))
+    expect(handleClick).toBeCalled()
   })
-
   describe('when tooltip prop is present', () => {
     it('renders a tooltip', () => {
       const testTooltip = 'Test'
@@ -63,6 +62,20 @@ describe('BaseButton', () => {
     it("doesn't render a tooltiop", () => {
       const { queryByText } = render(<BaseButton />)
       expect(queryByText('div')).toBeNull()
+    })
+  })
+  describe('when leading prop is present', () => {
+    it('renders a leading element', () => {
+      const testElement = 'hello'
+      const { queryByText } = render(<BaseButton leading={testElement} />)
+      expect(queryByText(testElement)).toBeTruthy()
+    })
+  })
+  describe('when trailing prop is present', () => {
+    it('renders a trailing element', () => {
+      const testElement = 'hello'
+      const { queryByText } = render(<BaseButton trailing={testElement} />)
+      expect(queryByText(testElement)).toBeTruthy()
     })
   })
 })
