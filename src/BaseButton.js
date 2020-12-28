@@ -3,7 +3,7 @@ import styles from './BaseButton.module.css'
 
 export default function BaseButton(props) {
   return (
-    <button {...props} className={[styles.button, props.className].join(' ')}>
+    <button className={[styles.button, props.className].join(' ')}>
       {props.children}
       <div className={[styles.tooltip, props.tooltipClassName].join(' ')}>
         {props.tooltip}

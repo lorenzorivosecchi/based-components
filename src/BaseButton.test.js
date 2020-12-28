@@ -20,10 +20,6 @@ describe('BaseButton', () => {
     const { getByRole } = render(<BaseButton />)
     expect(getByRole('button')).toHaveClass('button')
   })
-  it('merges attributes', () => {
-    const { getByRole } = render(<BaseButton disabled />)
-    expect(getByRole('button')).toHaveAttribute('disabled')
-  })
   it('merges classNames', () => {
     const testClass = 'secondary'
     const { getByRole } = render(<BaseButton className={testClass} />)
