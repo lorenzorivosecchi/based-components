@@ -45,12 +45,13 @@
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@testing-library/react": "^11.2.2"
   }
 }
