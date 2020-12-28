@@ -3,7 +3,7 @@ import { BaseButton } from 'lorenzo-components'
 import 'lorenzo-components/dist/index.css'
 
 const App = () => {
-  return <BaseButton>Click me.</BaseButton>
+  return <BaseButton tooltip="Hello">Click me.</BaseButton>
 }
 
 export default App
