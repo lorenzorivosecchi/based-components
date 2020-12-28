@@ -25,7 +25,7 @@ describe('BaseButton', () => {
     const { getByRole } = render(<BaseButton className={testClass} />)
     expect(getByRole('button')).toHaveClass('button', testClass)
   })
-  describe('when tooltip prop is set', () => {
+  describe('when tooltip prop is present', () => {
     it('renders a tooltip', () => {
       const testTooltip = 'Test'
       const { getByText } = render(<BaseButton tooltip={testTooltip} />)
@@ -49,6 +49,12 @@ describe('BaseButton', () => {
         'tooltip',
         testTooltipClassName
       )
+    })
+  })
+  describe('when tooltip prop is missing', () => {
+    it("doesn't render a tooltiop", () => {
+      const { queryByText } = render(<BaseButton />)
+      expect(queryByText('div')).toBeNull()
     })
   })
 })

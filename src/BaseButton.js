@@ -5,9 +5,11 @@ export default function BaseButton(props) {
   return (
     <button className={[styles.button, props.className].join(' ')}>
       {props.children}
-      <div className={[styles.tooltip, props.tooltipClassName].join(' ')}>
-        {props.tooltip}
-      </div>
+      {props.tooltip && (
+        <div className={[styles.tooltip, props.tooltipClassName].join(' ')}>
+          {props.tooltip}
+        </div>
+      )}
     </button>
   )
 }
