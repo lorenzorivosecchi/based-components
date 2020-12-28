@@ -1,6 +1,7 @@
 import React from 'react'
 import BaseButton from './BaseButton'
-import { getByText, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect'
 
 describe('BaseButton', () => {
@@ -25,6 +26,13 @@ describe('BaseButton', () => {
     const { getByRole } = render(<BaseButton className={testClass} />)
     expect(getByRole('button')).toHaveClass('button', testClass)
   })
+  it('handles click events', () => {
+    const handleClick = jest.fn();
+    const { getByRole } = render(<BaseButton onClick={handleClick} />)
+    userEvent.click(getByRole("button"));
+    expect(handleClick).toBeCalled(); 
+  })
+
   describe('when tooltip prop is present', () => {
     it('renders a tooltip', () => {
       const testTooltip = 'Test'
