@@ -5,6 +5,9 @@ export default function BaseButton(props) {
   return (
     <button {...props} className={[styles.button, props.className].join(' ')}>
       {props.children}
+      <div className={[styles.tooltip, props.tooltipClassName].join(' ')}>
+        {props.tooltip}
+      </div>
     </button>
   )
 }
