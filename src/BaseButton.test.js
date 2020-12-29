@@ -43,39 +43,11 @@ describe('BaseButton', () => {
       const { getByText } = render(<BaseButton tooltip={testTooltip} />)
       expect(getByText(testTooltip)).toHaveClass('tooltip')
     })
-    it('merges classNames', () => {
-      const testTooltip = 'Test'
-      const testTooltipClassName = 'secondary'
-      const { getByText } = render(
-        <BaseButton
-          tooltip={testTooltip}
-          tooltipClassName={testTooltipClassName}
-        />
-      )
-      expect(getByText(testTooltip)).toHaveClass(
-        'tooltip',
-        testTooltipClassName
-      )
-    })
   })
   describe('when tooltip prop is missing', () => {
-    it("doesn't render a tooltiop", () => {
+    it("doesn't render a tooltip", () => {
       const { queryByText } = render(<BaseButton />)
       expect(queryByText('div')).toBeNull()
-    })
-  })
-  describe('when leading prop is present', () => {
-    it('renders a leading element', () => {
-      const testElement = 'hello'
-      const { queryByText } = render(<BaseButton leading={testElement} />)
-      expect(queryByText(testElement)).toBeTruthy()
-    })
-  })
-  describe('when trailing prop is present', () => {
-    it('renders a trailing element', () => {
-      const testElement = 'hello'
-      const { queryByText } = render(<BaseButton trailing={testElement} />)
-      expect(queryByText(testElement)).toBeTruthy()
     })
   })
 })

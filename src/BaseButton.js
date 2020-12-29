@@ -3,22 +3,12 @@ import styles from './BaseButton.module.css'
 import { classNames } from './lib/classNames'
 
 export default function BaseButton(props) {
-  const { className, onClick, children, tooltip, tooltipClassName, leading, trailing } = props
+  const { className, onClick, children, tooltip } = props
 
   return (
-    <button
-      className={classNames(styles.button, className)}
-      onClick={onClick}
-    >
-      {leading}
+    <button className={classNames(styles.button, className)} onClick={onClick}>
       {children}
-      {trailing}
-
-      {tooltip && (
-        <div className={classNames(styles.tooltip, tooltipClassName)}>
-          {tooltip}
-        </div>
-      )}
+      {tooltip && <div className={styles.tooltip}>{tooltip}</div>}
     </button>
   )
 }
