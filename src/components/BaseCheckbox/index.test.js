@@ -2,7 +2,7 @@ import React from 'react'
 import BaseCheckbox from '.'
 import styles from './index.module.css'
 import { render } from '@testing-library/react'
-// import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect'
 
 describe('BaseCheckbox', () => {
@@ -16,5 +16,11 @@ describe('BaseCheckbox', () => {
   it('has default styles', () => {
     const { container } = render(<BaseCheckbox />)
     expect(container.firstChild).toHaveClass(styles.container)
+  })
+  it('handles clicks', () => {
+    const { getByRole } = render(<BaseCheckbox />)
+    const checkbox = getByRole('checkbox');
+    userEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
   })
 })
