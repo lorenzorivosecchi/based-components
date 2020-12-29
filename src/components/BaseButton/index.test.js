@@ -1,5 +1,6 @@
 import React from 'react'
 import BaseButton from '.'
+import styles from "./index.module.css";
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect'
@@ -19,12 +20,12 @@ describe('BaseButton', () => {
   })
   it('has default className', () => {
     const { getByRole } = render(<BaseButton />)
-    expect(getByRole('button')).toHaveClass('button')
+    expect(getByRole('button')).toHaveClass(styles.button)
   })
   it('merges classNames', () => {
     const testClass = 'secondary'
     const { getByRole } = render(<BaseButton className={testClass} />)
-    expect(getByRole('button')).toHaveClass('button', testClass)
+    expect(getByRole('button')).toHaveClass(styles.button, testClass)
   })
   it('handles click events', () => {
     const handleClick = jest.fn()
@@ -41,7 +42,7 @@ describe('BaseButton', () => {
     it('provides default className', () => {
       const testTooltip = 'Test'
       const { getByText } = render(<BaseButton tooltip={testTooltip} />)
-      expect(getByText(testTooltip)).toHaveClass('tooltip')
+      expect(getByText(testTooltip)).toHaveClass(styles.tooltip)
     })
   })
   describe('when tooltip prop is missing', () => {
