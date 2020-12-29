@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './BaseButton.module.css'
+import styles from './index.module.css'
 import { classNames } from '../../lib/classNames'
 
 export default function BaseButton(props) {
