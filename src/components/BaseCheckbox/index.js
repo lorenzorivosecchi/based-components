@@ -5,7 +5,7 @@ export default function BaseCheckbox() {
     return (
         <label className={styles.container}>
             <input type="checkbox" />
-            <span></span>
+            <span className={styles.checkmark}></span>
         </label>
     )
 }
