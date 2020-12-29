@@ -17,10 +17,15 @@ describe('BaseCheckbox', () => {
     const { container } = render(<BaseCheckbox />)
     expect(container.firstChild).toHaveClass(styles.container)
   })
+  it('merges className', () => {
+    const testClassName = 'secondary'
+    const { container } = render(<BaseCheckbox className={testClassName} />)
+    expect(container.firstChild).toHaveClass(styles.container, testClassName)
+  })
   it('handles clicks', () => {
     const { getByRole } = render(<BaseCheckbox />)
-    const checkbox = getByRole('checkbox');
-    userEvent.click(checkbox);
-    expect(checkbox).toBeChecked();
+    const checkbox = getByRole('checkbox')
+    userEvent.click(checkbox)
+    expect(checkbox).toBeChecked()
   })
 })
