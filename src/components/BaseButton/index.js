@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './BaseButton.module.css'
-import { classNames } from './lib/classNames'
+import { classNames } from '../../lib/classNames'
 
 export default function BaseButton(props) {
   const { className, onClick, children, tooltip } = props
