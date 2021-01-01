@@ -8,7 +8,7 @@ const App = () => {
       <BaseButton tooltip='Hello'>Click me.</BaseButton>
       <BaseCheckbox />
       <BaseTextField />
-      <BaseSelect />
+      <BaseSelect options={["Red", "Green", "Yellow"]} />
     </>
   )
 }
