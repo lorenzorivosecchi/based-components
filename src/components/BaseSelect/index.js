@@ -6,8 +6,8 @@ export default function BaseSelect(props) {
 
   return (
     <select className={styles.wrapper} role='listbox'>
-      {options.map((value) => (
-        <option key={value}>{value}</option>
+      {options.map((key) => (
+        <option key={key}>{key}</option>
       ))}
     </select>
   )

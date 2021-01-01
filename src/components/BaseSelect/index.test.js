@@ -1,7 +1,7 @@
 import React from 'react'
 import BaseSelect from '.'
 import styles from './index.module.css'
-import { screen, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 // import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect'
 
@@ -17,17 +17,9 @@ describe('BaseSelect', () => {
     const { container } = render(<BaseSelect />)
     expect(container.firstChild).toHaveClass(styles.wrapper)
   })
-  describe('when the options prop is present', () => {
-    const options = ['dog', 'cat', 'mouse']
-
-    beforeEach(() => {
-      render(<BaseSelect options={options} />)
-    })
-
-    it('renders the options', () => {
-      expect(screen.queryAllByRole('option')).toHaveLength(options.length)
-    })
-    
-
+  it('renders the options', () => {
+    const options = ['Dog', 'Cat', 'Mouse']
+    const { queryAllByRole } = render(<BaseSelect />)
+    expect(queryAllByRole('option')).toHaveLength(options.length)
   })
 })
