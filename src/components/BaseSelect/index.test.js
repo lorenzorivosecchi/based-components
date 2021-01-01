@@ -25,10 +25,16 @@ describe('BaseSelect', () => {
   it('allows options to be selected and unselected', () => {
     const options = ['dog']
     const { getByRole } = render(<BaseSelect options={options} />)
-    const firstOption = getByRole('option');
-    userEvent.click(firstOption);
-    expect(firstOption).toHaveAttribute("aria-selected", "true");
-    userEvent.click(firstOption);
-    expect(firstOption).toHaveAttribute("aria-selected", "false");
+
+    const firstOption = getByRole('option')
+    const listBox = getByRole('listbox')
+
+    userEvent.click(firstOption)
+    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id);
+    expect(firstOption).toHaveAttribute('aria-selected', 'true');
+
+    userEvent.click(firstOption)
+    expect(firstOption).toHaveAttribute('aria-selected', 'false')
+    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id);
   })
 })
