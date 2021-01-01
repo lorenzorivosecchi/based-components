@@ -19,7 +19,10 @@ describe('BaseSelect', () => {
   })
   it('renders the options', () => {
     const options = ['Dog', 'Cat', 'Mouse']
-    const { queryAllByRole } = render(<BaseSelect />)
+    const { queryAllByRole } = render(<BaseSelect options={options} />)
     expect(queryAllByRole('option')).toHaveLength(options.length)
+  })
+  it('passes the onChange prop', () => {
+
   })
 })
