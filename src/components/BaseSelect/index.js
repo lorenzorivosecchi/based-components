@@ -1,10 +1,11 @@
 import React from 'react'
+import styles from "./index.module.css"
 
 export default function BaseSelect(props) {
   const { options = [] } = props
 
   return (
-    <select role='listbox'>
+    <select className={styles.wrapper} role='listbox'>
       {options.map((value) => (
         <option key={value}>{value}</option>
       ))}
