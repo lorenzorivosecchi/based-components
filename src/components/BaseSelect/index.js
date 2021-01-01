@@ -1,10 +1,25 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import styles from './index.module.css'
 
 export default function BaseSelect(props) {
   const { options = [] } = props
 
-  const [selection, setSelection] = useState()
+  const [selection, setSelection] = useState([])
+
+  const handleClick = useCallback(
+    (event) => {
+      const value = event.target.getAttribute('data-value')
+      const ariaSelected = event.target.getAttribute('aria-selected')
+      const isSelected = ariaSelected === 'true'
+
+      if (isSelected) {
+        setSelection(selection.filter((s) => s !== value))
+      } else {
+        setSelection([...selection, value])
+      }
+    },
+    [selection, setSelection]
+  )
 
   return (
     <div className={styles.wrapper}>
@@ -13,15 +28,16 @@ export default function BaseSelect(props) {
           <span>OPEN</span>
         </div>
         <div role='listbox' className={styles.options}>
-          {options.map(({ label, value }) => (
+          {options.map((value) => (
             <div
               key={value}
               role='option'
               className={styles.option}
-              onClick={() => setSelection(value)}
-              aria-selected={selection === value}
+              onClick={handleClick}
+              data-value={value}
+              aria-selected={selection.some(s => s === value)}
             >
-              {label}
+              {value}
             </div>
           ))}
         </div>

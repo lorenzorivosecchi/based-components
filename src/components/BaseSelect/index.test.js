@@ -18,15 +18,17 @@ describe('BaseSelect', () => {
     expect(container.firstChild).toHaveClass(styles.wrapper)
   })
   it('renders the options', () => {
-    const options = [{ value: 'dog', label: 'Dog' }]
+    const options = ['dog']
     const { queryAllByRole } = render(<BaseSelect options={options} />)
     expect(queryAllByRole('option')).toHaveLength(options.length)
   })
-  it('allows options to be selected', () => {
-    const options = [{ value: 'dog', label: 'Dog' }]
+  it('allows options to be selected and unselected', () => {
+    const options = ['dog']
     const { getByRole } = render(<BaseSelect options={options} />)
     const firstOption = getByRole('option');
     userEvent.click(firstOption);
     expect(firstOption).toHaveAttribute("aria-selected", "true");
+    userEvent.click(firstOption);
+    expect(firstOption).toHaveAttribute("aria-selected", "false");
   })
 })
