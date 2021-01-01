@@ -22,4 +22,11 @@ describe('BaseSelect', () => {
     const { queryAllByRole } = render(<BaseSelect options={options} />)
     expect(queryAllByRole('option')).toHaveLength(options.length)
   })
+  it('allows options to be selected', () => {
+    const options = [{ value: 'dog', label: 'Dog' }]
+    const { getByRole } = render(<BaseSelect options={options} />)
+    const firstOption = getByRole('option');
+    userEvent.click(firstOption);
+    expect(firstOption).toHaveAttribute("aria-selected", "true");
+  })
 })
