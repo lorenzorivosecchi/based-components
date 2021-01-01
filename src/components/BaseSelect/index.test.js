@@ -2,7 +2,7 @@ import React from 'react'
 import BaseSelect from '.'
 import styles from './index.module.css'
 import { render } from '@testing-library/react'
-// import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom/extend-expect'
 
 describe('BaseSelect', () => {
@@ -18,11 +18,8 @@ describe('BaseSelect', () => {
     expect(container.firstChild).toHaveClass(styles.wrapper)
   })
   it('renders the options', () => {
-    const options = ['Dog', 'Cat', 'Mouse']
+    const options = [{ value: 'dog', label: 'Dog' }]
     const { queryAllByRole } = render(<BaseSelect options={options} />)
     expect(queryAllByRole('option')).toHaveLength(options.length)
-  })
-  it('passes the onChange prop', () => {
-
   })
 })
