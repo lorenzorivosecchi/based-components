@@ -15,12 +15,12 @@ npm install --save lorenzo-components
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'lorenzo-components'
+import { BaseButton } from 'lorenzo-components'
 import 'lorenzo-components/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <BaseButton>Click Me</BaseButton>
   }
 }
 ```
