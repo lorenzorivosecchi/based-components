@@ -9,7 +9,7 @@ export default function BaseSelect(props) {
 
   const handleClick = useCallback(
     (event) => {
-      const value = event.target.getAttribute('data-value')
+      const value = event.target.innerHTML;
       const ariaSelected = event.target.getAttribute('aria-selected')
 
       setActiveDescendant(event.target.id)
@@ -40,7 +40,6 @@ export default function BaseSelect(props) {
               role='option'
               id={`lc-listbox1-${index}`}
               className={styles.option}
-              data-value={value}
               aria-selected={selection.some((s) => s === value)}
               onClick={handleClick}
             >
