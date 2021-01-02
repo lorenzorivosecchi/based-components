@@ -1,15 +1,15 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styles from './index.module.css'
 
 export default function BaseSelect(props) {
-  const { options = [] } = props
+  const { options = [], onChange } = props
 
   const [selection, setSelection] = useState([])
   const [activeDescendant, setActiveDescendant] = useState()
 
   const handleClick = useCallback(
     (event) => {
-      const value = event.target.innerHTML;
+      const value = event.target.innerHTML
       const ariaSelected = event.target.getAttribute('aria-selected')
 
       setActiveDescendant(event.target.id)
@@ -22,6 +22,12 @@ export default function BaseSelect(props) {
     },
     [selection, setSelection]
   )
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selection)
+    }
+  }, [selection])
 
   return (
     <div className={styles.wrapper}>

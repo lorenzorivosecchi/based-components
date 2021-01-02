@@ -30,11 +30,22 @@ describe('BaseSelect', () => {
     const listBox = getByRole('listbox')
 
     userEvent.click(firstOption)
-    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id);
-    expect(firstOption).toHaveAttribute('aria-selected', 'true');
+    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id)
+    expect(firstOption).toHaveAttribute('aria-selected', 'true')
 
     userEvent.click(firstOption)
     expect(firstOption).toHaveAttribute('aria-selected', 'false')
-    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id);
+    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id)
+  })
+  it('executes a callback when selection changes', () => {
+    const options = ['dog']
+    const handleChange = jest.fn()
+    const { getByRole } = render(
+      <BaseSelect options={options} onChange={handleChange} />
+    )
+    const firstOption = getByRole('option')
+
+    userEvent.click(firstOption)
+    expect(handleChange).toHaveBeenCalled();
   })
 })
