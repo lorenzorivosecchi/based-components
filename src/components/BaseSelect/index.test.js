@@ -46,6 +46,7 @@ describe('BaseSelect', () => {
     const firstOption = getByRole('option')
 
     userEvent.click(firstOption)
-    expect(handleChange).toHaveBeenCalled();
+    expect(handleChange).toHaveBeenCalledWith([ firstOption.innerHTML ])
   })
 })
+ 
