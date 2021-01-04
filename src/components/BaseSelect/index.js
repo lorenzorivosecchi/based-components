@@ -7,8 +7,9 @@ export default function BaseSelect(props) {
 
   const [selection, setSelection] = useState([])
   const [activeDescendant, setActiveDescendant] = useState()
+  const [open, setOpen] = useState(false)
 
-  const handleClick = useCallback(
+  const handleOptionClick = useCallback(
     (event) => {
       const value = event.target.innerHTML
       const ariaSelected = event.target.getAttribute('aria-selected')
@@ -24,6 +25,10 @@ export default function BaseSelect(props) {
     [selection, setSelection]
   )
 
+  const handleLabelClick = useCallback(() => {
+    setOpen(!open)
+  }, [open, setOpen])
+
   useEffect(() => {
     if (onChange) {
       onChange(selection)
@@ -33,12 +38,17 @@ export default function BaseSelect(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div role='label' id={styles.label} className={styles.label}>
+        <div
+          role='label'
+          id={styles.label}
+          className={styles.label}
+          onClick={handleLabelClick}
+        >
           Select
         </div>
         <div
           role='listbox'
-          className={classNames(styles.options, styles.open)}
+          className={classNames(styles.options, open && styles.open)}
           aria-activedescendant={activeDescendant}
           aria-labelledby={styles.label}
         >
@@ -55,7 +65,7 @@ export default function BaseSelect(props) {
                   isSelected && styles.selected
                 )}
                 aria-selected={isSelected}
-                onClick={handleClick}
+                onClick={handleOptionClick}
               >
                 {value}
               </div>

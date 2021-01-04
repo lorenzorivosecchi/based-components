@@ -53,8 +53,27 @@ describe('BaseSelect', () => {
     userEvent.click(firstOption)
     expect(handleChange).toHaveBeenCalledWith([ firstOption.innerHTML ])
   })
-  it('opens the options when trigger is clicked', () => {
+  it('opens the options when label is clicked', () => {
+    const options = ['dog'];
+    const { getByRole } = render(<BaseSelect options={options} />);
+    
+    const label = getByRole("label");
+    const listbox = getByRole("listbox");
 
+    userEvent.click(label)
+    expect(listbox).toHaveClass(styles.open);
+  })
+  it('closes the options when label is clicked for the second time', () => {
+    const options = ['dog'];
+    const { getByRole } = render(<BaseSelect options={options} />);
+    
+    const label = getByRole("label");
+    const listbox = getByRole("listbox");
+
+    userEvent.click(label)
+    expect(listbox).toHaveClass(styles.open);
+    userEvent.click(label)
+    expect(listbox).not.toHaveClass(styles.open);
   })
 })
  
