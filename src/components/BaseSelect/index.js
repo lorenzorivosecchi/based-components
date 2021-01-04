@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import styles from './index.module.css'
+import { classNames } from '../../lib/classNames'
 
 export default function BaseSelect(props) {
   const { options = [], onChange } = props
@@ -37,21 +38,28 @@ export default function BaseSelect(props) {
         </div>
         <div
           role='listbox'
-          className={styles.options}
+          className={classNames(styles.options, styles.open)}
           aria-activedescendant={activeDescendant}
         >
-          {options.map((value, index) => (
-            <div
-              key={value}
-              role='option'
-              id={`lc-listbox1-${index}`}
-              className={styles.option}
-              aria-selected={selection.some((s) => s === value)}
-              onClick={handleClick}
-            >
-              {value}
-            </div>
-          ))}
+          {options.map((value, index) => {
+            const isSelected = selection.some((s) => s === value)
+
+            return (
+              <div
+                key={value}
+                role='option'
+                id={`lc-listbox1-${index}`}
+                className={classNames(
+                  styles.option,
+                  isSelected && styles.selected
+                )}
+                aria-selected={isSelected}
+                onClick={handleClick}
+              >
+                {value}
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
