@@ -1,6 +1,6 @@
 import React from 'react'
-import { BaseButton, BaseCheckbox, BaseTextField, BaseSelect } from 'based-compoents'
-import 'based-compoents/dist/index.css'
+import { BaseButton, BaseCheckbox, BaseTextField, BaseSelect } from 'based-components'
+import 'based-components/dist/index.css'
 
 const App = () => {
   return (

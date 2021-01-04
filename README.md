@@ -1,13 +1,13 @@
-# based-compoents
+# based-components
 
 > A library of react components
 
-[![NPM](https://img.shields.io/npm/v/based-compoents.svg)](https://www.npmjs.com/package/based-compoents) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/based-components.svg)](https://www.npmjs.com/package/based-components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
 
 ```bash
-npm install --save based-compoents
+npm install --save based-components
 ```
 
 ## Usage
@@ -15,8 +15,8 @@ npm install --save based-compoents
 ```jsx
 import React, { Component } from 'react'
 
-import { BaseButton } from 'based-compoents'
-import 'based-compoents/dist/index.css'
+import { BaseButton } from 'based-components'
+import 'based-components/dist/index.css'
 
 class Example extends Component {
   render() {
