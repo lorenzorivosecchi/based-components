@@ -48,7 +48,7 @@ export default function BaseSelect(props) {
               <div
                 key={value}
                 role='option'
-                id={`lc-listbox1-${index}`}
+                id={`${styles.option}-${index}`}
                 className={classNames(
                   styles.option,
                   isSelected && styles.selected
