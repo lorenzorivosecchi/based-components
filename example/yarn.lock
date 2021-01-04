@@ -6473,7 +6473,7 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-"lorenzo-components@link:..":
+"based-compoents@link:..":
   version "0.0.0"
   uid ""
 

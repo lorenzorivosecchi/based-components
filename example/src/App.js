@@ -1,6 +1,6 @@
 import React from 'react'
-import { BaseButton, BaseCheckbox, BaseTextField, BaseSelect } from 'lorenzo-components'
-import 'lorenzo-components/dist/index.css'
+import { BaseButton, BaseCheckbox, BaseTextField, BaseSelect } from 'based-compoents'
+import 'based-compoents/dist/index.css'
 
 const App = () => {
   return (
