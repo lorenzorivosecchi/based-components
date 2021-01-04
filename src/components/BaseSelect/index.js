@@ -33,13 +33,14 @@ export default function BaseSelect(props) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <div className={styles.trigger}>
-          <span>OPEN</span>
+        <div role='label' id={styles.label} className={styles.label}>
+          Select
         </div>
         <div
           role='listbox'
           className={classNames(styles.options, styles.open)}
           aria-activedescendant={activeDescendant}
+          aria-labelledby={styles.label}
         >
           {options.map((value, index) => {
             const isSelected = selection.some((s) => s === value)

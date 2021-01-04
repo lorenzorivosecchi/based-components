@@ -22,6 +22,11 @@ describe('BaseSelect', () => {
     const { queryAllByRole } = render(<BaseSelect options={options} />)
     expect(queryAllByRole('option')).toHaveLength(options.length)
   })
+  it('renders a label', () => {
+    const options = ['dog'];
+    const { queryByRole } = render(<BaseSelect options={options} />)
+    expect( queryByRole("label") ).not.toBeNull();
+  })
   it('allows options to be selected and unselected', () => {
     const options = ['dog']
     const { getByRole } = render(<BaseSelect options={options} />)
@@ -47,6 +52,9 @@ describe('BaseSelect', () => {
 
     userEvent.click(firstOption)
     expect(handleChange).toHaveBeenCalledWith([ firstOption.innerHTML ])
+  })
+  it('opens the options when trigger is clicked', () => {
+
   })
 })
  
