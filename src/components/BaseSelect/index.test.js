@@ -66,6 +66,11 @@ describe('BaseSelect', () => {
       const options = screen.queryAllByRole('option')
       expect(options[0]).toHaveAttribute('aria-selected', 'true')
     })
+    it('should be added as listbox active descendant', () => {
+      const options = screen.queryAllByRole('option')
+      const listbox = screen.getByRole('listbox');
+      expect(listbox).toHaveAttribute('aria-activedescendant', options[0].id);
+    })
   })
 
   describe('when a selected option is clicked', () => {
@@ -77,6 +82,27 @@ describe('BaseSelect', () => {
     it('should switch to unselected', () => {
       const options = screen.queryAllByRole('option')
       expect(options[0]).toHaveAttribute('aria-selected', 'false')
+    })
+    it('should be removed from listbox active descendant', () => {
+      const listbox = screen.getByRole('listbox');
+      expect(listbox).not.toHaveAttribute('aria-activedescendant');
+    })
+  })
+
+  describe("when another option is selected", () => {
+    beforeEach(() => {
+      const options = screen.queryAllByRole('option')
+      userEvent.click(options[0])
+      userEvent.click(options[1])
+    })
+    it('should override the previously selected option', () => {
+      const options = screen.queryAllByRole('option')
+      expect(options[0]).toHaveAttribute('aria-selected', 'false')
+      expect(options[1]).toHaveAttribute('aria-selected', 'true')
+    })
+    it('should replace the previous listbox active descendant', () => {
+      const listbox = screen.getByRole('listbox');
+      expect(listbox).toHaveAttribute('aria-activedescendant', options[1].id);
     })
   })
 })

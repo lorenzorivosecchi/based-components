@@ -10,12 +10,17 @@ import { classNames } from '../../lib/classNames'
 export default function BaseSelect(props) {
   const [open, setOpen] = useState()
   const [selection, setSelection] = useState()
+  const [activeElementId, setActiveElementId] = useState()
 
-  const handleOptionClick = (value) => {
+  const handleClick = ({ target }) => {
+    const value = target.innerHTML
+
     if (selection !== value) {
       setSelection(value)
+      setActiveElementId(target.id)
     } else {
       setSelection(null)
+      setActiveElementId(null)
     }
   }
 
@@ -28,14 +33,16 @@ export default function BaseSelect(props) {
         tabIndex={0}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
+        aria-activedescendant={activeElementId}
       >
         {props.options.map((value, index) => (
           <div
             role='option'
             key={value}
+            index={'option-' + index}
             tabIndex={1 + index}
             aria-selected={selection === value}
-            onClick={() => handleOptionClick(value)}
+            onClick={handleClick}
           >
             {value}
           </div>
