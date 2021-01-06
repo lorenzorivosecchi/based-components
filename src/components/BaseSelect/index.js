@@ -11,19 +11,21 @@ export default function BaseSelect(props) {
   const [open, setOpen] = useState()
 
   return (
-    <div
-      role='listbox'
-      className={open ? styles.open : ""}
-      tabIndex={0}
-      onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)}
-    >
+    <div>
       <div role='label'>Select</div>
-      {props.options.map((value, index) => (
-        <div role='option' key={value} tabIndex={1 + index}>
-          {value}
-        </div>
-      ))}
+      <div
+        role='listbox'
+        className={open ? styles.open : ""}
+        tabIndex={0}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+      >
+        {props.options.map((value, index) => (
+          <div role='option' key={value} tabIndex={1 + index}>
+            {value}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
