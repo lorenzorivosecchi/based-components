@@ -14,17 +14,17 @@ export default function BaseSelect(props) {
   const [selection, setSelection] = useState([])
   const [activeElementId, setActiveElementId] = useState()
 
-
   const handleClick = ({ target }) => {
     const value = target.innerHTML
-    const isSelected = selection.includes(value);
+    const isSelected = selection.includes(value)
+
+    setActiveElementId(target.id)
 
     // If it's a multi select listbox
     if (multiple) {
-      setActiveElementId(target.id)
       // If selection includes value
       if (isSelected) {
-        setSelection(selection.filter((v) => v === value))
+        setSelection(selection.filter((v) => v !== value))
       } else {
         setSelection([...selection, value])
       }
@@ -32,12 +32,8 @@ export default function BaseSelect(props) {
     }
 
     // If it's a single select listbox
-    if (isSelected) {
-      setSelection([])
-      setActiveElementId(null)
-    } else {
-      setSelection([ value ])
-      setActiveElementId(target.id)
+    if (isSelected === false) {
+      setSelection([value])
     }
   }
 

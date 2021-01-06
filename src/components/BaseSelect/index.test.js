@@ -78,13 +78,9 @@ describe('BaseSelect', () => {
       userEvent.click(options[0])
       userEvent.click(options[0])
     })
-    it('switches to unselected', () => {
+    it('keeps being selected', () => {
       const options = screen.queryAllByRole('option')
-      expect(options[0]).toHaveAttribute('aria-selected', 'false')
-    })
-    it('is removed from listbox active descendant', () => {
-      const listbox = screen.getByRole('listbox')
-      expect(listbox).not.toHaveAttribute('aria-activedescendant')
+      expect(options[0]).toHaveAttribute('aria-selected', 'true')
     })
   })
 
@@ -110,6 +106,7 @@ describe('BaseSelect (multiple)', () => {
   beforeEach(() => {
     render(<BaseSelect options={options} multiple />)
   })
+  
   describe('when another option is selected', () => {
     beforeEach(() => {
       const options = screen.queryAllByRole('option')
@@ -120,6 +117,18 @@ describe('BaseSelect (multiple)', () => {
       const options = screen.queryAllByRole('option')
       expect(options[0]).toHaveAttribute('aria-selected', 'true')
       expect(options[1]).toHaveAttribute('aria-selected', 'true')
+    })
+  })
+
+  describe('when a selected option is clicked', () => {
+    beforeEach(() => {
+      const options = screen.queryAllByRole('option')
+      userEvent.click(options[0])
+      userEvent.click(options[0])
+    })
+    it('switches to unselected', () => {
+      const options = screen.queryAllByRole('option')
+      expect(options[0]).toHaveAttribute('aria-selected', 'false')
     })
   })
 })
