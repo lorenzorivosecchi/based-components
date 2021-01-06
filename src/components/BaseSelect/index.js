@@ -11,6 +11,14 @@ export default function BaseSelect(props) {
   const [open, setOpen] = useState()
   const [selection, setSelection] = useState()
 
+  const handleOptionClick = (value) => {
+    if (selection !== value) {
+      setSelection(value)
+    } else {
+      setSelection(null)
+    }
+  }
+
   return (
     <div>
       <div role='label'>Select</div>
@@ -27,13 +35,7 @@ export default function BaseSelect(props) {
             key={value}
             tabIndex={1 + index}
             aria-selected={selection === value}
-            onClick={() => {
-              if (selection !== value) {
-                setSelection(value)
-              } else {
-                setSelection(null)
-              }
-            }}
+            onClick={() => handleOptionClick(value)}
           >
             {value}
           </div>
