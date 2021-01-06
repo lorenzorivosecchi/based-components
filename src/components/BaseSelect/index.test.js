@@ -12,18 +12,18 @@ describe('BaseSelect', () => {
     render(<BaseSelect options={options} />)
   })
 
-  it('is truthy', () => {
+  it('should be truthy', () => {
     expect(BaseSelect).toBeTruthy()
   })
-  it('renders a listbox', () => {
+  it('should render a listbox', () => {
     expect(screen.getByRole('listbox')).toBeTruthy()
   })
-  it('renders the options', () => {
+  it('should render the options', () => {
     screen.queryAllByRole('option').forEach((option, index) => {
       expect(option).toHaveTextContent(options[index])
     })
   })
-  it('renders a label', () => {
+  it('should render a label', () => {
     const label = screen.queryByRole('label');
     expect(label).toHaveTextContent(/.+/);
   })
@@ -34,6 +34,26 @@ describe('BaseSelect', () => {
     screen.getAllByRole('option').forEach((option) => {
       userEvent.tab()
       expect(option).toHaveFocus()
+    })
+  })
+
+
+  describe('when listbox becomes active', () => {
+    beforeEach(() => {
+      userEvent.tab();
+    })
+    it('should display the options', () => {
+      expect(screen.getByRole("listbox")).toHaveClass(styles.open);
+    })
+  })
+
+  describe('when listbox becomes inactive', () => {
+    beforeEach(() => {
+      userEvent.tab();
+      userEvent.click(document.body);
+    })
+    it('should hide the options', () => {
+      expect(screen.getByRole("listbox")).not.toHaveClass(styles.open);
     })
   })
 })
