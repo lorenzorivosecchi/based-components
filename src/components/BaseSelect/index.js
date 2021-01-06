@@ -2,8 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styles from './index.module.css'
 import { classNames } from '../../lib/classNames'
 
+/**
+ *
+ * @param {*} props
+ * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
+ */
 export default function BaseSelect(props) {
-  const { options = [], onChange } = props
+  const { options = [], onChange, multiple } = props
 
   const [selection, setSelection] = useState([])
   const [activeDescendant, setActiveDescendant] = useState()
@@ -16,10 +21,14 @@ export default function BaseSelect(props) {
 
       setActiveDescendant(event.target.id)
 
-      if (ariaSelected === 'true') {
-        setSelection(selection.filter((s) => s !== value))
+      if (multiple) {
+        if (ariaSelected === 'true') {
+          setSelection(selection.filter((s) => s !== value))
+        } else {
+          setSelection([...selection, value])
+        }
       } else {
-        setSelection([...selection, value])
+        setSelection([value])
       }
     },
     [selection, setSelection]
@@ -51,6 +60,7 @@ export default function BaseSelect(props) {
           className={classNames(styles.options, open && styles.open)}
           aria-activedescendant={activeDescendant}
           aria-labelledby={styles.label}
+          aria-multiselectable={multiple}
         >
           {options.map((value, index) => {
             const isSelected = selection.some((s) => s === value)

@@ -23,24 +23,24 @@ describe('BaseSelect', () => {
     expect(queryAllByRole('option')).toHaveLength(options.length)
   })
   it('renders a label', () => {
-    const options = ['dog'];
-    const { queryByRole } = render(<BaseSelect options={options} />)
-    expect( queryByRole("label") ).not.toBeNull();
-  })
-  it('allows options to be selected and unselected', () => {
     const options = ['dog']
-    const { getByRole } = render(<BaseSelect options={options} />)
+    const { queryByRole } = render(<BaseSelect options={options} />)
+    expect(queryByRole('label')).not.toBeNull()
+  })
+  it('allows a single option to be selected at the time', () => {
+    const options = ['dog', 'cat']
 
-    const firstOption = getByRole('option')
-    const listBox = getByRole('listbox')
+    const { getByRole, getAllByRole } = render(<BaseSelect options={options} />)
 
-    userEvent.click(firstOption)
-    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id)
-    expect(firstOption).toHaveAttribute('aria-selected', 'true')
+    const listbox = getByRole('listbox')
+    const [first, second] = getAllByRole('option')
 
-    userEvent.click(firstOption)
-    expect(firstOption).toHaveAttribute('aria-selected', 'false')
-    expect(listBox).toHaveAttribute('aria-activedescendant', firstOption.id)
+    userEvent.click(first)
+    userEvent.click(second)
+
+    expect(first).toHaveAttribute('aria-selected', 'false')
+    expect(second).toHaveAttribute('aria-selected', 'true')
+    expect(listbox).toHaveAttribute('aria-activedescendant', second.id)
   })
   it('executes a callback when selection changes', () => {
     const options = ['dog']
@@ -51,29 +51,66 @@ describe('BaseSelect', () => {
     const firstOption = getByRole('option')
 
     userEvent.click(firstOption)
-    expect(handleChange).toHaveBeenCalledWith([ firstOption.innerHTML ])
+    expect(handleChange).toHaveBeenCalledWith([firstOption.innerHTML])
   })
   it('opens the options when label is clicked', () => {
-    const options = ['dog'];
-    const { getByRole } = render(<BaseSelect options={options} />);
-    
-    const label = getByRole("label");
-    const listbox = getByRole("listbox");
+    const options = ['dog']
+    const { getByRole } = render(<BaseSelect options={options} />)
+
+    const label = getByRole('label')
+    const listbox = getByRole('listbox')
 
     userEvent.click(label)
-    expect(listbox).toHaveClass(styles.open);
+    expect(listbox).toHaveClass(styles.open)
   })
   it('closes the options when label is clicked for the second time', () => {
-    const options = ['dog'];
-    const { getByRole } = render(<BaseSelect options={options} />);
-    
-    const label = getByRole("label");
-    const listbox = getByRole("listbox");
+    const options = ['dog']
+    const { getByRole } = render(<BaseSelect options={options} />)
+
+    const label = getByRole('label')
+    const listbox = getByRole('listbox')
 
     userEvent.click(label)
-    expect(listbox).toHaveClass(styles.open);
+    expect(listbox).toHaveClass(styles.open)
     userEvent.click(label)
-    expect(listbox).not.toHaveClass(styles.open);
+    expect(listbox).not.toHaveClass(styles.open)
+  })
+  describe('when multiple prop is set to true', () => {
+    it('specifies that is multiselectable', () => {
+      const options = ['dog']
+      const { getByRole } = render(
+        <BaseSelect options={options} multiple={true} />
+      )
+      expect(getByRole('listbox')).toHaveAttribute(
+        'aria-multiselectable',
+        'true'
+      )
+    })
+    it('allows multiple options to be selected', () => {
+      const options = ['dog', 'cat', 'mouse']
+
+      const { getByRole, getAllByRole } = render(
+        <BaseSelect options={options} multiple={true} />
+      )
+
+      const listbox = getByRole('listbox')
+      const [first, second, third] = getAllByRole('option')
+
+      userEvent.click(first)
+      userEvent.click(second)
+
+      expect(first).toHaveAttribute('aria-selected', 'true')
+      expect(second).toHaveAttribute('aria-selected', 'true')
+      expect(third).toHaveAttribute('aria-selected', 'false')
+      expect(listbox).toHaveAttribute('aria-activedescendant', second.id)
+
+      userEvent.click(first)
+      userEvent.click(third)
+
+      expect(first).toHaveAttribute('aria-selected', 'false')
+      expect(second).toHaveAttribute('aria-selected', 'true')
+      expect(third).toHaveAttribute('aria-selected', 'true')
+      expect(listbox).toHaveAttribute('aria-activedescendant', third.id)
+    })
   })
 })
- 
