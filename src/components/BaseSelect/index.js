@@ -38,6 +38,15 @@ export default function BaseSelect(props) {
     setOpen(!open)
   }, [open, setOpen])
 
+  const handleListboxFocus = useCallback((event) => {
+    const { target } = event
+    const options = target.children
+
+    if (options.length > 0) {
+      options[0].focus()
+    }
+  }, [])
+
   useEffect(() => {
     if (onChange) {
       onChange(selection)
@@ -57,10 +66,12 @@ export default function BaseSelect(props) {
         </div>
         <div
           role='listbox'
+          tabIndex={0}
           className={classNames(styles.options, open && styles.open)}
           aria-activedescendant={activeDescendant}
           aria-labelledby={styles.label}
           aria-multiselectable={multiple}
+          onFocus={handleListboxFocus}
         >
           {options.map((value, index) => {
             const isSelected = selection.some((s) => s === value)
@@ -70,6 +81,7 @@ export default function BaseSelect(props) {
                 key={value}
                 role='option'
                 id={`${styles.option}-${index}`}
+                tabIndex={1 + index}
                 className={classNames(
                   styles.option,
                   isSelected && styles.selected

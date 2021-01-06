@@ -75,6 +75,15 @@ describe('BaseSelect', () => {
     userEvent.click(label)
     expect(listbox).not.toHaveClass(styles.open)
   })
+  it('passes focus to the first item if there is no selection', () => {
+    const options = ['dog', 'cat', 'mouse']
+    const { getAllByRole } = render(<BaseSelect options={options} />)
+
+    const [ option ] = getAllByRole('option')
+
+    userEvent.tab()
+    expect(option).toHaveFocus()
+  })
   describe('when multiple prop is set to true', () => {
     it('specifies that is multiselectable', () => {
       const options = ['dog']
