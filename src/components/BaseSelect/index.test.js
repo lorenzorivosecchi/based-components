@@ -56,7 +56,6 @@ describe('BaseSelect', () => {
       expect(screen.getByRole('listbox')).not.toHaveClass(styles.open)
     })
   })
-
   describe('when an unselected option is clicked', () => {
     beforeEach(() => {
       const options = screen.queryAllByRole('option')
@@ -68,8 +67,8 @@ describe('BaseSelect', () => {
     })
     it('should be added as listbox active descendant', () => {
       const options = screen.queryAllByRole('option')
-      const listbox = screen.getByRole('listbox');
-      expect(listbox).toHaveAttribute('aria-activedescendant', options[0].id);
+      const listbox = screen.getByRole('listbox')
+      expect(listbox).toHaveAttribute('aria-activedescendant', options[0].id)
     })
   })
 
@@ -84,12 +83,12 @@ describe('BaseSelect', () => {
       expect(options[0]).toHaveAttribute('aria-selected', 'false')
     })
     it('should be removed from listbox active descendant', () => {
-      const listbox = screen.getByRole('listbox');
-      expect(listbox).not.toHaveAttribute('aria-activedescendant');
+      const listbox = screen.getByRole('listbox')
+      expect(listbox).not.toHaveAttribute('aria-activedescendant')
     })
   })
 
-  describe("when another option is selected", () => {
+  describe('when another option is selected', () => {
     beforeEach(() => {
       const options = screen.queryAllByRole('option')
       userEvent.click(options[0])
@@ -101,8 +100,26 @@ describe('BaseSelect', () => {
       expect(options[1]).toHaveAttribute('aria-selected', 'true')
     })
     it('should replace the previous listbox active descendant', () => {
-      const listbox = screen.getByRole('listbox');
-      expect(listbox).toHaveAttribute('aria-activedescendant', options[1].id);
+      const listbox = screen.getByRole('listbox')
+      expect(listbox).toHaveAttribute('aria-activedescendant', options[1].id)
+    })
+  })
+})
+
+describe('BaseSelect (multiple)', () => {
+  beforeEach(() => {
+    render(<BaseSelect options={options} multiple />)
+  })
+  describe('when another option is selected', () => {
+    beforeEach(() => {
+      const options = screen.queryAllByRole('option')
+      userEvent.click(options[0])
+      userEvent.click(options[1])
+    })
+    it('should NOT override the previously selected option', () => {
+      const options = screen.queryAllByRole('option')
+      expect(options[0]).toHaveAttribute('aria-selected', 'true')
+      expect(options[1]).toHaveAttribute('aria-selected', 'true')
     })
   })
 })

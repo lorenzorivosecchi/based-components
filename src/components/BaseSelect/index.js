@@ -8,19 +8,36 @@ import { classNames } from '../../lib/classNames'
  * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role
  */
 export default function BaseSelect(props) {
+  const { options = [], multiple } = props
+
   const [open, setOpen] = useState()
-  const [selection, setSelection] = useState()
+  const [selection, setSelection] = useState([])
   const [activeElementId, setActiveElementId] = useState()
+
 
   const handleClick = ({ target }) => {
     const value = target.innerHTML
+    const isSelected = selection.includes(value);
 
-    if (selection !== value) {
-      setSelection(value)
+    // If it's a multi select listbox
+    if (multiple) {
       setActiveElementId(target.id)
-    } else {
-      setSelection(null)
+      // If selection includes value
+      if (isSelected) {
+        setSelection(selection.filter((v) => v === value))
+      } else {
+        setSelection([...selection, value])
+      }
+      return
+    }
+
+    // If it's a single select listbox
+    if (isSelected) {
+      setSelection([])
       setActiveElementId(null)
+    } else {
+      setSelection([ value ])
+      setActiveElementId(target.id)
     }
   }
 
@@ -35,13 +52,13 @@ export default function BaseSelect(props) {
         onBlur={() => setOpen(false)}
         aria-activedescendant={activeElementId}
       >
-        {props.options.map((value, index) => (
+        {options.map((value, index) => (
           <div
             role='option'
             key={value}
             index={'option-' + index}
             tabIndex={1 + index}
-            aria-selected={selection === value}
+            aria-selected={selection.includes(value)}
             onClick={handleClick}
           >
             {value}
