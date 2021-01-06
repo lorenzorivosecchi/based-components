@@ -9,19 +9,32 @@ import { classNames } from '../../lib/classNames'
  */
 export default function BaseSelect(props) {
   const [open, setOpen] = useState()
+  const [selection, setSelection] = useState()
 
   return (
     <div>
       <div role='label'>Select</div>
       <div
         role='listbox'
-        className={open ? styles.open : ""}
+        className={open ? styles.open : ''}
         tabIndex={0}
         onFocus={() => setOpen(true)}
         onBlur={() => setOpen(false)}
       >
         {props.options.map((value, index) => (
-          <div role='option' key={value} tabIndex={1 + index}>
+          <div
+            role='option'
+            key={value}
+            tabIndex={1 + index}
+            aria-selected={selection === value}
+            onClick={() => {
+              if (selection !== value) {
+                setSelection(value)
+              } else {
+                setSelection(null)
+              }
+            }}
+          >
             {value}
           </div>
         ))}
